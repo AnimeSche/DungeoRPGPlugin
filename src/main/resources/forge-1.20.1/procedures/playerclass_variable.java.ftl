@@ -1,0 +1,1 @@
+(new PlayerClass(${input$Name}, ${input$Effects}, ${input$Level}, ${input$Skill}))

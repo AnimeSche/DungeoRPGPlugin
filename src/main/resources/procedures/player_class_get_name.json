@@ -1,0 +1,20 @@
+{
+  "args0": [
+    {
+      "type": "input_dummy",
+      "name": "playerclassvar"
+    }
+  ],
+  "message0": "Get player name",
+  "output": "String",
+  "tooltip": "Returns the name of the player class",
+  "colour": "%{BKY_LOGIC_HUE}",
+  "inputsInline": true,
+  "extensions": ["custom_playerclass_variables"],
+  "mcreator": {
+    "toolbox_id": "dungeon_rpg_actions",
+    "inputs": [
+      "playerclassvar"
+    ]
+  }
+}

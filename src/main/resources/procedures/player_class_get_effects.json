@@ -1,0 +1,20 @@
+{
+  "args0": [
+    {
+      "type": "input_dummy",
+      "name": "playerclassvar"
+    }
+  ],
+  "message0": "Get class buffs",
+  "output": "Array",
+  "tooltip": "Returns an array of class buffs",
+  "inputsInline": true,
+  "colour": 160,
+  "extensions": ["custom_playerclass_variables"],
+  "mcreator": {
+    "toolbox_id": "dungeon_rpg_actions",
+    "inputs": [
+      "playerclassvar"
+    ]
+  }
+}

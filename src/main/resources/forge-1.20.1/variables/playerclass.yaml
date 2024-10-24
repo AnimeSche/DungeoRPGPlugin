@@ -1,0 +1,55 @@
+defaultvalue: PlayerClass.EMPTY
+scopes:
+  local:
+    init: ${var.getType().getJavaType(generator.getWorkspace())} ${var.getName()} = ${var.getType().getDefaultValue(generator.getWorkspace())};
+    get: /*@PlayerClass*/${Name} // або інший доступ до даних
+    set: <#include "dungeon_rpg.ftl"> ${Name} = ${mappedMCPlayerToPlayerClassCode(value, 1)};
+  global_session:
+    init: public static PlayerClass ${var.getName()} = PlayerClass.EMPTY;
+    get: /*@PlayerClass*/${JavaModName}Variables.${Name}
+    set: <#include "dungeon_rpg.ftl"> ${JavaModName}Variables.${Name} = ${mappedMCPlayerToPlayerClassCode(value, 1)};
+  player_persistent:
+    init: public PlayerClass ${var.getName()} = PlayerClass.EMPTY;
+    read: ${var.getName()} = PlayerClass.of(nbt.getCompound("${var.getName()}"));
+    write: nbt.put("${var.getName()}", ${var.getName()}.toNBT(new CompoundTag()));
+    get: |
+      /*@PlayerClass*/((${entity}.getCapability(${JavaModName}Variables.PLAYER_VARIABLES_CAPABILITY, null)
+        .orElse(new ${JavaModName}Variables.PlayerVariables())).${name})
+    set: |
+      <#include "dungeon_rpg.ftl">
+      {
+        PlayerClass _setval = ${mappedMCPlayerToPlayerClassCode(value, 1)};
+        ${entity}.getCapability(${JavaModName}Variables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+          capability.${name} = _setval;
+          capability.syncPlayerVariables(${entity});
+        });
+      }
+  player_lifetime:
+    init: public PlayerClass ${var.getName()} = PlayerClass.EMPTY;
+    read: ${var.getName()} = PlayerClass.of(nbt.getCompound("${var.getName()}"));
+    write: nbt.put("${var.getName()}", ${var.getName()}.toNBT(new CompoundTag()));
+    get: |
+      /*@PlayerClass*/((${entity}.getCapability(${JavaModName}Variables.PLAYER_VARIABLES_CAPABILITY, null)
+        .orElse(new ${JavaModName}Variables.PlayerVariables())).${name})
+      set: |
+      <#include "dungeon_rpg.ftl">
+      {
+        PlayerClass _setval = ${mappedMCPlayerToPlayerClassCode(value, 1)};
+        ${entity}.getCapability(${JavaModName}Variables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+          capability.${name} = _setval;
+          capability.syncPlayerVariables(${entity});
+        });
+      }
+  global_map:
+    init: public PlayerClass ${var.getName()} = PlayerClass.EMPTY;
+    write: nbt.put("${var.getName()}", ${var.getName()}.toNBT(new CompoundTag()));
+    read: ${var.getName()} = PlayerClass.of(nbt.getCompound("${var.getName()}"));
+    get: /*@PlayerClass*/${JavaModName}Variables.MapVariables.get(world).${name}
+    set: |
+      <#include "dungeon_rpg.ftl">
+      ${JavaModName}Variables.MapVariables.get(world).${name} = ${mappedMCPlayerToPlayerClassCode(value, 1)};
+      ${JavaModName}Variables.MapVariables.get(world).syncData(world);
+  global_world:
+    init: public static PlayerClass ${var.getName()} = new PlayerClass();
+    get: ${JavaModName}Variables.${Name}
+    set: ${JavaModName}Variables.${Name} = (PlayerClass) ${opt.removeParentheses(value)};

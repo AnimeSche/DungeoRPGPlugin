@@ -1,0 +1,43 @@
+{
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "Name",
+      "check": "String"
+    },
+    {
+      "type": "input_value",
+      "name": "Effects",
+      "check": "Array"
+    },
+    {
+      "type": "input_value",
+      "name": "Level",
+      "check": "Number"
+    },
+    {
+      "type": "input_value",
+      "name": "Skill",
+      "check": "String"
+    }
+  ],
+  "type": "playerclass_variable",
+  "output": "PlayerClass",
+  "inputsInline": true,
+  "colour": 60,
+  "mcreator": {
+    "toolbox_id": "dungeon_rpg_data",
+    "toolbox_init": [
+      "<value name=\"Name\"><block type=\"text\"><field name=\"TEXT\">Player Name</field></block></value>",
+      "<value name=\"Effects\"><block type=\"lists_create_with\"><mutation items=\"0\"></mutation></block></value>",
+      "<value name=\"Level\"><block type=\"math_number\"><field name=\"NUM\">1</field></block></value>",
+      "<value name=\"Skill\"><block type=\"text\"><field name=\"TEXT\">Skill Name</field></block></value>"
+    ],
+    "inputs": [
+      "Name",
+      "Effects",
+      "Level",
+      "Skill"
+    ]
+  }
+}

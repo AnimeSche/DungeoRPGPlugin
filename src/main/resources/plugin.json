@@ -1,0 +1,13 @@
+{
+  "id": "dungeon-rpg",
+  "supportedversions": [
+    2024003
+  ],
+  "weight": 0,
+  "info": {
+    "name": "Dungeon RPG API plugin",
+    "version": "1.0",
+    "description": "API",
+    "author": "SkillFi"
+  }
+}
